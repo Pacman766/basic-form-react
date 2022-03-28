@@ -2,14 +2,20 @@ import React, { useState } from 'react';
 import './index.css';
 
 export default function App() {
-  const [data, setData] = useState({
-    firestName: '',
+  const [value, setValue] = useState({
+    firstName: '',
     lastName: '',
     email: '',
   });
 
-  const handleDataInput = () => {
-    setData({ ...data });
+  const handleFirstNameInput = (e) => {
+    setValue({ ...value, firstName: e.target.value });
+  };
+  const handleLastNameInput = (e) => {
+    setValue({ ...value, lastName: e.target.value });
+  };
+  const handleEmailInput = (e) => {
+    setValue({ ...value, email: e.target.value });
   };
 
   return (
@@ -18,6 +24,8 @@ export default function App() {
         {/* Uncomment the next line to show the success message */}
         {/* <div class="success-message">Success! Thank you for registering</div> */}
         <input
+          onChange={handleFirstNameInput}
+          value={value.firstName}
           id="first-name"
           class="form-field"
           type="text"
@@ -27,6 +35,8 @@ export default function App() {
         {/* Uncomment the next line to show the error message */}
         {/* <span id="first-name-error">Please enter a first name</span> */}
         <input
+          onChange={handleLastNameInput}
+          value={value.lastName}
           id="last-name"
           class="form-field"
           type="text"
@@ -36,6 +46,8 @@ export default function App() {
         {/* Uncomment the next line to show the error message */}
         {/* <span id="last-name-error">Please enter a last name</span> */}
         <input
+          onChange={handleEmailInput}
+          value={value.email}
           id="email"
           class="form-field"
           type="text"
