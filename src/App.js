@@ -7,6 +7,8 @@ export default function App() {
     lastName: '',
     email: '',
   });
+  const [submitted, setSubmited] = useState(false);
+  const [valid, setValid] = useState(false);
 
   const handleFirstNameInput = (e) => {
     setValue({ ...value, firstName: e.target.value });
@@ -18,45 +20,61 @@ export default function App() {
     setValue({ ...value, email: e.target.value });
   };
 
+  const handleSuccessMsgShow = (e) => {
+    e.preventDefault();
+    if (value.firstName && value.lastName && value.email) {
+      setValid(true);
+    }
+    setSubmited(true);
+  };
+
   return (
-    <div class="form-container">
-      <form class="register-form">
-        {/* Uncomment the next line to show the success message */}
-        {/* <div class="success-message">Success! Thank you for registering</div> */}
+    <div className="form-container">
+      <form className="register-form" onSubmit={handleSuccessMsgShow}>
+        {submitted && valid ? (
+          <div className="success-message">
+            Success! Thank you for registering
+          </div>
+        ) : (
+          false
+        )}
         <input
           onChange={handleFirstNameInput}
           value={value.firstName}
           id="first-name"
-          class="form-field"
+          className="form-field"
           type="text"
           placeholder="First Name"
           name="firstName"
         />
-        {/* Uncomment the next line to show the error message */}
-        {/* <span id="first-name-error">Please enter a first name</span> */}
+        {submitted && !value.firstName ? (
+          <span id="first-name-error">Please enter a first name</span>
+        ) : null}
         <input
           onChange={handleLastNameInput}
           value={value.lastName}
           id="last-name"
-          class="form-field"
+          className="form-field"
           type="text"
           placeholder="Last Name"
           name="lastName"
         />
-        {/* Uncomment the next line to show the error message */}
-        {/* <span id="last-name-error">Please enter a last name</span> */}
+        {submitted && !value.lastName ? (
+          <span id="last-name-error">Please enter a last name</span>
+        ) : null}
         <input
           onChange={handleEmailInput}
           value={value.email}
           id="email"
-          class="form-field"
+          className="form-field"
           type="text"
           placeholder="Email"
           name="email"
         />
-        {/* Uncomment the next line to show the error message */}
-        {/* <span id="email-error">Please enter an email address</span> */}
-        <button class="form-field" type="submit">
+        {submitted && !value.email ? (
+          <span id="email-error">Please enter an email address</span>
+        ) : null}
+        <button className="form-field" type="submit">
           Register
         </button>
       </form>
